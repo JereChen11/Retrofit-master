@@ -27,7 +27,7 @@ public abstract class RetrofitCallback<T> extends HttpRequestCallback implements
                 onFailure(responseData);
             } else {
                 String responseData = ((ResponseBody) response.body()).string();
-                onSuccess(responseData, "");
+                onCallSuccess(responseData, "");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,5 +43,6 @@ public abstract class RetrofitCallback<T> extends HttpRequestCallback implements
         onFailure(t.getMessage());
     }
 
-    public abstract void onSuccess(String responseData, String message) throws IOException, XmlPullParserException, JSONException;
+//    @Override
+//    public abstract void onCallSuccess(String responseData, String message) throws IOException, XmlPullParserException, JSONException;
 }

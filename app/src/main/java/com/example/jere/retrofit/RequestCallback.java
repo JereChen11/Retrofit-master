@@ -5,7 +5,7 @@ import okhttp3.Response;
 /**
  * @author jere
  */
-public interface RequestCalback {
+public interface RequestCallback {
 
     void onSuccess(Response response, String message);
 

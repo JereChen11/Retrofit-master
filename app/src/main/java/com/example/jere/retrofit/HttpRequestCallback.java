@@ -10,13 +10,13 @@ import okhttp3.Response;
 /**
  * @author jere
  */
-public abstract class HttpRequestCallback implements RequestCalback{
+public abstract class HttpRequestCallback implements RequestCallback {
 
     @Override
     public void onSuccess(Response response, String message) {
         try {
             String responseData = response.body().string();
-            onSuccess(responseData, message);
+            onCallSuccess(responseData, message);
             response.close();
         } catch (IOException e) {
 
@@ -31,8 +31,10 @@ public abstract class HttpRequestCallback implements RequestCalback{
 
     @Override
     public void onFailure(String message) {
-
+        onCallFailed(message);
     }
 
-    public abstract void onSuccess(String responseData, String message) throws IOException, XmlPullParserException, JSONException;
+    public abstract void onCallSuccess(String responseData, String message) throws IOException, XmlPullParserException, JSONException;
+
+    public abstract void onCallFailed(String message);
 }
