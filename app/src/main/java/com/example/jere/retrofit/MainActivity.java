@@ -15,28 +15,44 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
-import okhttp3.Callback;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * @author jere
  */
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
+    private TextView mTextView;
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.button);
-        TextView textView = (TextView) findViewById(R.id.tv);
+        findViewId();
 
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retrofitCall();
+            }
+        });
+
+    }
+
+    private void findViewId() {
+        mButton = (Button) findViewById(R.id.button);
+        mTextView = (TextView) findViewById(R.id.tv);
+    }
+
+    private void retrofitCall() {
         ApiService apiService = ApiWrapper.newInstance().getService();
-        Call<ResponseBody> typeRequest = apiService.getTypeConfig();
+        Call<ResponseBody> typeRequest = apiService.getResponse();
 
+        /* callback function one */
 //        typeRequest.enqueue(new retrofit2.Callback<ResponseBody>() {
 //            @Override
 //            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -50,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        /* callback function two */
         typeRequest.enqueue(new RetrofitCallback<ResponseBody>() {
             @Override
             public void onCallSuccess(String responseData, String message) throws IOException, XmlPullParserException, JSONException {
                 Log.d(TAG, "onResponse: " + responseData);
+                mTextView.setText(responseData);
             }
 
             @Override
@@ -62,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
 

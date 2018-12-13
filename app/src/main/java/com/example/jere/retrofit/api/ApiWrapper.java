@@ -24,6 +24,6 @@ public class ApiWrapper extends ApiWrapperBase {
 
     @Override
     protected String getApiHost() {
-        return "https://hktdcmagazine-portal.hktdc.com";
+        return "https://blog.csdn.net";
     }
 }

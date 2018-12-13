@@ -10,6 +10,6 @@ import retrofit2.http.GET;
  */
 public interface ApiService {
 
-    @GET("/api/ebadge/ebadge_types_config")
-    Call<ResponseBody> getTypeConfig();
+    @GET("/jerechen/article/details/83722574")
+    Call<ResponseBody> getResponse();
 }
