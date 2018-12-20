@@ -12,4 +12,7 @@ public interface ApiService {
 
     @GET("/jerechen/article/details/83722574")
     Call<ResponseBody> getResponse();
+
+    @GET("/jerechen")
+    Call<ResponseBody> getProfile();
 }

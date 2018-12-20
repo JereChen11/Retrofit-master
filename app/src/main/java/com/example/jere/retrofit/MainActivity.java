@@ -1,5 +1,6 @@
 package com.example.jere.retrofit;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,8 @@ import org.json.JSONException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
     private TextView mTextView;
     private Button mButton;
+    private Button mNextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +45,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mNextButton.setOnClickListener(view -> goToSecondActivity());
+
+
     }
 
     private void findViewId() {
-        mButton = (Button) findViewById(R.id.button);
-        mTextView = (TextView) findViewById(R.id.tv);
+        mButton = findViewById(R.id.button);
+        mTextView = findViewById(R.id.tv);
+        mNextButton = findViewById(R.id.next_button);
     }
 
     private void retrofitCall() {
         ApiService apiService = ApiWrapper.newInstance().getService();
-        Call<ResponseBody> typeRequest = apiService.getResponse();
+        Call<ResponseBody> request = apiService.getProfile();
 
         /* callback function one */
 //        typeRequest.enqueue(new retrofit2.Callback<ResponseBody>() {
@@ -67,10 +75,11 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         /* callback function two */
-        typeRequest.enqueue(new RetrofitCallback<ResponseBody>() {
+        request.enqueue(new RetrofitCallback<ResponseBody>() {
             @Override
             public void onCallSuccess(String responseData, String message) throws IOException, XmlPullParserException, JSONException {
                 Log.d(TAG, "onResponse: " + responseData);
+                // TODO handle responseData to display
                 mTextView.setText(responseData);
             }
 
@@ -80,6 +89,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void goToSecondActivity() {
+        Intent intent = new Intent(this, SecondActivity.class);
+        startActivity(intent);
+    }
+
+//    private String handleResponseData(String responseData) {
+//        String mString = null;
+//
+//        return mString;
+//    }
 
 
 
