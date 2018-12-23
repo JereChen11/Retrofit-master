@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         mNextButton.setOnClickListener(view -> goToSecondActivity());
 
-
     }
 
     private void findViewId() {
@@ -59,28 +58,13 @@ public class MainActivity extends AppCompatActivity {
     private void retrofitCall() {
         ApiService apiService = ApiWrapper.newInstance().getService();
         Call<ResponseBody> request = apiService.getProfile();
-
-        /* callback function one */
-//        typeRequest.enqueue(new retrofit2.Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-//                String responseData = response.body().toString();
-//                Log.d(TAG, "onResponse: " + responseData);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Log.d(TAG, "onFailure: " + t.getMessage());
-//            }
-//        });
-
-        /* callback function two */
         request.enqueue(new RetrofitCallback<ResponseBody>() {
             @Override
             public void onCallSuccess(String responseData, String message) throws IOException, XmlPullParserException, JSONException {
                 Log.d(TAG, "onResponse: " + responseData);
                 // TODO handle responseData to display
-                mTextView.setText(responseData);
+                String textString = handleResponseData(responseData);
+                mTextView.setText(textString);
             }
 
             @Override
@@ -95,12 +79,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    private String handleResponseData(String responseData) {
-//        String mString = null;
-//
-//        return mString;
-//    }
-
-
+    private String handleResponseData(String responseData) {
+        String mString = null;
+        Pattern pattern = Pattern.compile("href=\"https://blog.csdn.net/jerechen/article/details/\\d{8}\"[>](.*)[<]");
+        Matcher matcher = pattern.matcher(responseData);
+        StringBuffer buffer = new StringBuffer();
+        while (matcher.find()){
+            buffer.append(matcher.group().toString());
+            buffer.append("\n");
+        }
+        mString = buffer.toString();
+        return mString;
+    }
 
 }
