@@ -1,4 +1,4 @@
-package com.example.jere.retrofit;
+package com.example.jere.retrofit.practiceDemo;
 
 import org.json.JSONException;
 import org.xmlpull.v1.XmlPullParserException;

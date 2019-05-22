@@ -1,4 +1,4 @@
-package com.example.jere.retrofit;
+package com.example.jere.retrofit.practiceDemo;
 
 import okhttp3.Response;
 

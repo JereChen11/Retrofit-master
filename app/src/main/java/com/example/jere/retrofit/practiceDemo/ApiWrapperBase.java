@@ -1,7 +1,8 @@
-package com.example.jere.retrofit;
+package com.example.jere.retrofit.practiceDemo;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;

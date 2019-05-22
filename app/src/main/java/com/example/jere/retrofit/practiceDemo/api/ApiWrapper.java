@@ -1,6 +1,6 @@
-package com.example.jere.retrofit.api;
+package com.example.jere.retrofit.practiceDemo.api;
 
-import com.example.jere.retrofit.ApiWrapperBase;
+import com.example.jere.retrofit.practiceDemo.ApiWrapperBase;
 
 /**
  * @author jere

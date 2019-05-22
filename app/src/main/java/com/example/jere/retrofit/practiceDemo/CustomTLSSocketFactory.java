@@ -1,4 +1,4 @@
-package com.example.jere.retrofit;
+package com.example.jere.retrofit.practiceDemo;
 
 import java.io.IOException;
 import java.net.InetAddress;
